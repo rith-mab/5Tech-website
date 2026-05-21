@@ -151,7 +151,8 @@ const Particles: React.FC<ParticlesProps> = ({
       window.addEventListener('mousemove', handleMouseMove);
     }
 
-    const count = particleCount;
+    const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || 'ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const count = isMobile ? Math.min(particleCount, 100) : particleCount;
     const positions = new Float32Array(count * 3);
     const randoms = new Float32Array(count * 4);
     const colors = new Float32Array(count * 3);
