@@ -21,25 +21,43 @@ const TikTokIcon = (props: React.ComponentProps<"svg">) => (
     <path d="M15 8a4 4 0 1 0 0-8c0 2.5 2.5 4 4 4" />
   </svg>
 );
+
+function getCleanDisplayValue(value: string, label: string): string {
+  if (label === "Telegram" && value.includes("t.me/")) {
+    const parts = value.split("t.me/");
+    return "@" + parts[parts.length - 1].replace(/\/$/, "");
+  }
+  if (label === "Facebook" && value.includes("facebook.com/")) {
+    const parts = value.split("facebook.com/");
+    return "@" + parts[parts.length - 1].replace(/\/$/, "");
+  }
+  if (label === "TikTok" && value.includes("tiktok.com/")) {
+    const parts = value.split("tiktok.com/");
+    const handle = parts[parts.length - 1].split("?")[0].replace(/\/$/, "");
+    return handle.startsWith("@") ? handle : "@" + handle;
+  }
+  return value;
+}
+
 const contacts = [
   {
     label: "Telegram",
-    value: process.env.NEXT_PUBLIC_TELEGRAM_URL ?? "https://t.me/your_username",
+    value: process.env.NEXT_PUBLIC_TELEGRAM_URL ?? "https://t.me/Five_5TechCambodia",
     icon: Send
   },
   {
     label: "Facebook",
-    value: process.env.NEXT_PUBLIC_STORE_FACEBOOK ?? "https://facebook.com/yourpage",
+    value: process.env.NEXT_PUBLIC_STORE_FACEBOOK ?? "https://facebook.com/5techcambodia",
     icon: Facebook
   },
   {
     label: "Phone",
-    value: process.env.NEXT_PUBLIC_STORE_PHONE ?? "+85512345678",
+    value: process.env.NEXT_PUBLIC_STORE_PHONE ?? "+855 76 554 2456",
     icon: Phone
   },
   {
     label: "Email",
-    value: process.env.NEXT_PUBLIC_STORE_EMAIL ?? "hello@5techstore.com",
+    value: process.env.NEXT_PUBLIC_STORE_EMAIL ?? "5techstore@gmail.com",
     icon: Mail
   },
   {
@@ -49,7 +67,7 @@ const contacts = [
   },
   {
     label: "TikTok",
-    value: process.env.NEXT_PUBLIC_STORE_TIKTOK ?? "https://tiktok.com/@yourpage",
+    value: process.env.NEXT_PUBLIC_STORE_TIKTOK ?? "https://www.tiktok.com/@5tech.computer?_r=1&_t=ZS-96Xd3OvoK29",
     icon: TikTokIcon
   }
 ];
@@ -80,6 +98,8 @@ export default async function ContactPage() {
                 ? `tel:${item.value.replace(/\s+/g, "")}`
                 : null;
 
+          const displayVal = getCleanDisplayValue(item.value, item.label);
+
           return (
             <div
               key={item.label}
@@ -95,10 +115,10 @@ export default async function ContactPage() {
                   </p>
                   {href ? (
                     <Link href={href} className="font-medium text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200" target={isUrl ? "_blank" : undefined}>
-                      {item.value}
+                      {displayVal}
                     </Link>
                   ) : (
-                    <p className="font-medium text-slate-800 dark:text-slate-200">{item.value}</p>
+                    <p className="font-medium text-slate-800 dark:text-slate-200">{displayVal}</p>
                   )}
                 </div>
               </div>

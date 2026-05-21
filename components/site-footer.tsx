@@ -31,19 +31,41 @@ export async function SiteFooter() {
                 {getTranslation(lang, "footer.connect" as TranslationKey)}
               </h2>
               <div className="flex justify-center gap-4 md:justify-start">
-                <a href="#" className="rounded-full bg-white/10 p-2 transition hover:bg-[#39b54a] hover:text-white">
+                <a 
+                  href={process.env.NEXT_PUBLIC_STORE_FACEBOOK ?? "https://facebook.com/5techcambodia"} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="rounded-full bg-white/10 p-2 transition hover:bg-[#39b54a] hover:text-white"
+                  title="Facebook"
+                >
                   <Facebook className="h-5 w-5" />
                 </a>
-                <a href="#" className="rounded-full bg-white/10 p-2 transition hover:bg-[#39b54a] hover:text-white" title="Telegram">
+                <a 
+                  href={process.env.NEXT_PUBLIC_TELEGRAM_URL ?? "https://t.me/Five_5TechCambodia"} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="rounded-full bg-white/10 p-2 transition hover:bg-[#39b54a] hover:text-white" 
+                  title="Telegram"
+                >
                   <Send className="h-5 w-5" />
                 </a>
-                <a href="#" className="rounded-full bg-white/10 p-2 transition hover:bg-[#39b54a] hover:text-white" title="TikTok">
+                <a 
+                  href={process.env.NEXT_PUBLIC_STORE_TIKTOK ?? "https://www.tiktok.com/@5tech.computer?_r=1&_t=ZS-96Xd3OvoK29"} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="rounded-full bg-white/10 p-2 transition hover:bg-[#39b54a] hover:text-white" 
+                  title="TikTok"
+                >
                   {/* Custom TikTok SVG */}
                   <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
                     <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
                   </svg>
                 </a>
-                <a href="#" className="rounded-full bg-white/10 p-2 transition hover:bg-[#39b54a] hover:text-white">
+                <a 
+                  href="#" 
+                  className="rounded-full bg-white/10 p-2 transition hover:bg-[#39b54a] hover:text-white"
+                  title="Instagram"
+                >
                   <Instagram className="h-5 w-5" />
                 </a>
               </div>

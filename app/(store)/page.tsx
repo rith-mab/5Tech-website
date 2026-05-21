@@ -32,44 +32,46 @@ export default async function HomePage() {
   return (
     <div className="relative space-y-8 pb-24">
       <div className="absolute inset-0 flex justify-center items-center opacity-10 pointer-events-none">
-        <img src="/logos/logo-no-text.png" alt="Background Logo" className="w-[300px] object-contain" />
+        <img src="/logos/logo-no-text.png" alt="Background Logo" className="w-[300px] max-h-[300px] object-contain" />
       </div>
-      <section className="relative page-shell pt-16 sm:pt-20 pb-4 lg:pt-32 lg:pb-8 2xl:pt-40 2xl:pb-12 overflow-hidden">
+      <section className="relative page-shell pt-20 sm:pt-24 pb-4 lg:pt-32 lg:pb-8 2xl:pt-40 2xl:pb-12 overflow-hidden">
         <div className="relative z-10 grid gap-10 sm:gap-14 lg:gap-16 lg:grid-cols-2 items-center max-w-[1600px] mx-auto w-full">
           {/* Logo Section */}
-          <div className="flex justify-center lg:justify-end animate-in fade-in zoom-in duration-1000">
+          <div className="flex justify-center lg:justify-end animate-in fade-in zoom-in duration-1000 w-full">
             <img 
               src="/logos/logo-no-text.png" 
               alt="5Tech Store Logo" 
-              className="w-[220px] sm:w-[320px] md:w-[380px] lg:w-[420px] xl:w-[500px] 2xl:w-[650px] drop-shadow-2xl hover:scale-105 transition-transform duration-700" 
+              className="w-full max-w-[200px] sm:max-w-[280px] md:max-w-[340px] lg:max-w-[380px] xl:max-w-[440px] 2xl:max-w-[480px] max-h-[200px] sm:max-h-[280px] md:max-h-[340px] lg:max-h-[380px] xl:max-h-[440px] 2xl:max-h-[480px] object-contain rounded-2xl drop-shadow-xl hover:scale-102 transition-transform duration-700" 
             />
           </div>
           
           {/* Text Content Section */}
-          <div className="flex flex-col items-center text-center space-y-5 sm:space-y-6 md:space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200 lg:-ml-12 xl:-ml-24 2xl:-ml-32">
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left space-y-5 sm:space-y-6 md:space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200 w-full lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl">
             <SplitText
               text={t("hero.badge") as string}
               tag="h2"
-              className="text-xl sm:text-2xl md:text-3xl xl:text-4xl 2xl:text-5xl font-medium text-emerald-600/80 tracking-wide"
+              className="text-lg sm:text-xl md:text-2xl lg:text-lg xl:text-xl 2xl:text-2xl font-medium text-emerald-600/80 tracking-wide"
               delay={35}
               duration={0.8}
               splitType="words"
+              textAlign="inherit"
             />
             
-            <h1 className="text-[2.75rem] leading-tight sm:text-6xl md:text-[5rem] lg:text-[4rem] xl:text-[5rem] 2xl:text-[6.5rem] font-bold tracking-tight text-emerald-600 pb-2">
+            <h1 className="text-4xl leading-tight sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold tracking-tight text-emerald-600 pb-2">
               <ShinyText text={t("hero.title") as string} speed={3} className="pb-4" />
             </h1>
             
             <SplitText
               text={t("hero.description") as string}
               tag="p"
-              className="max-w-[320px] sm:max-w-md md:max-w-lg xl:max-w-2xl 2xl:max-w-4xl text-base sm:text-lg md:text-xl xl:text-2xl 2xl:text-3xl text-gray-600 leading-relaxed font-medium"
+              className="max-w-[320px] sm:max-w-md md:max-w-lg lg:max-w-none text-sm sm:text-base md:text-lg lg:text-base xl:text-lg 2xl:text-xl text-gray-600 leading-relaxed font-medium"
               delay={15}
               duration={0.8}
               splitType="words"
+              textAlign="inherit"
             />
             
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 pt-2 sm:pt-4 2xl:pt-8">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 pt-2 sm:pt-4">
               <Button asChild size="lg" className="rounded-full px-6 sm:px-8 py-6 text-sm sm:text-base xl:text-lg 2xl:text-2xl 2xl:px-12 2xl:py-8 bg-emerald-700 hover:bg-emerald-800 text-white shadow-lg shadow-emerald-700/20 hover:shadow-emerald-700/40 transition-all hover:-translate-y-1">
                 <Link href="/products" className="flex items-center">
                   <ShinyText text={t("hero.browse") as string} speed={3} color="#ffffff" shineColor="#a7f3d0" className="inline-block" />
