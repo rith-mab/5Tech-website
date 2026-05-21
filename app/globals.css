@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 42 33% 98%;
+  --foreground: 173 45% 10%;
+  --card: 0 0% 100%;
+  --card-foreground: 173 45% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 173 45% 10%;
+  --primary: 176 77% 22%;
+  --primary-foreground: 43 57% 98%;
+  --secondary: 43 37% 92%;
+  --secondary-foreground: 173 45% 12%;
+  --muted: 40 26% 94%;
+  --muted-foreground: 173 14% 38%;
+  --accent: 160 39% 91%;
+  --accent-foreground: 173 45% 12%;
+  --border: 32 20% 86%;
+  --input: 32 20% 86%;
+  --ring: 176 77% 22%;
+  --radius: 1.25rem;
+}
+
+.dark {
+  --background: 173 39% 8%;
+  --foreground: 48 38% 96%;
+  --card: 175 32% 10%;
+  --card-foreground: 48 38% 96%;
+  --popover: 175 32% 10%;
+  --popover-foreground: 48 38% 96%;
+  --primary: 43 84% 73%;
+  --primary-foreground: 176 69% 14%;
+  --secondary: 173 22% 16%;
+  --secondary-foreground: 48 38% 96%;
+  --muted: 173 18% 15%;
+  --muted-foreground: 42 17% 72%;
+  --accent: 174 20% 18%;
+  --accent-foreground: 48 38% 96%;
+  --border: 174 15% 21%;
+  --input: 174 15% 21%;
+  --ring: 43 84% 73%;
+}
+
+* {
+  @apply border-border;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  font-family: "Google Sans", sans-serif;
+  background-image:
+    radial-gradient(circle at top, rgba(45, 212, 191, 0.12), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Google Sans", sans-serif;
+}
+
+.page-shell {
+  @apply mx-auto w-full px-4 sm:px-8 md:px-12 lg:px-16;
+}
+
+.glass-card {
+  @apply border border-white/40 bg-white/75 backdrop-blur-xl dark:border-white/10 dark:bg-white/5;
+}
+
+.soft-grid {
+  background-image:
+    linear-gradient(to right, rgba(120, 113, 108, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(120, 113, 108, 0.12) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
