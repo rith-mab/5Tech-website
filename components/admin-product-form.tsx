@@ -47,6 +47,9 @@ export function AdminProductForm({
   const [description, setDescription] = useState("");
   const [featured, setFeatured] = useState(false);
   const [trending, setTrending] = useState(false);
+  const [specs, setSpecs] = useState<Array<{ label: string; value: string }>>([]);
+  const [features, setFeatures] = useState<string[]>([]);
+  const [newFeature, setNewFeature] = useState("");
 
   // Dropdown States
   const [isOpen, setIsOpen] = useState(false);
@@ -63,6 +66,9 @@ export function AdminProductForm({
     setDescription(product?.description ?? "");
     setFeatured(product?.featured ?? false);
     setTrending(product?.trending ?? false);
+    setSpecs(product?.specs ?? []);
+    setFeatures(product?.features ?? []);
+    setNewFeature("");
   }, [product]);
 
   // Real-time server-side Token Verification
@@ -171,6 +177,9 @@ export function AdminProductForm({
     setDescription("");
     setFeatured(false);
     setTrending(false);
+    setSpecs([]);
+    setFeatures([]);
+    setNewFeature("");
     if (product) {
       router.push("/admin/products");
     }
@@ -202,8 +211,8 @@ export function AdminProductForm({
           image_url: imageUrl,
           featured: featured,
           trending: trending,
-          specs: product?.specs || [],
-          features: product?.features || []
+          specs: specs,
+          features: features
         };
 
         const response = await fetch("/api/products", {
@@ -463,7 +472,117 @@ export function AdminProductForm({
         />
       </div>
 
-      <div className="flex flex-wrap gap-4">
+      {/* Specifications Section */}
+      <div className="space-y-3 pt-4 border-t border-gray-100">
+        <div className="flex items-center justify-between">
+          <label className="text-sm font-semibold text-gray-500">Specifications (Key-Value)</label>
+          <button
+            type="button"
+            onClick={() => setSpecs([...specs, { label: "", value: "" }])}
+            className="text-xs font-semibold text-[#39b54a] hover:underline flex items-center gap-1"
+          >
+            + Add Spec Row
+          </button>
+        </div>
+        
+        {specs.length === 0 ? (
+          <p className="text-xs text-gray-400 italic">No specifications added yet. Will show default Model name only.</p>
+        ) : (
+          <div className="space-y-2">
+            {specs.map((spec, index) => (
+              <div key={index} className="flex gap-2 items-center">
+                <Input
+                  placeholder="Label (e.g. Weight)"
+                  value={spec.label}
+                  onChange={(e) => {
+                    const newSpecs = [...specs];
+                    newSpecs[index] = { ...newSpecs[index], label: e.target.value };
+                    setSpecs(newSpecs);
+                  }}
+                  className="flex-1 h-9 rounded-xl"
+                />
+                <Input
+                  placeholder="Value (e.g. 240g)"
+                  value={spec.value}
+                  onChange={(e) => {
+                    const newSpecs = [...specs];
+                    newSpecs[index] = { ...newSpecs[index], value: e.target.value };
+                    setSpecs(newSpecs);
+                  }}
+                  className="flex-1 h-9 rounded-xl"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSpecs(specs.filter((_, i) => i !== index));
+                  }}
+                  className="p-1 text-red-500 hover:text-red-700 font-bold text-lg"
+                  title="Remove"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Core Features Section */}
+      <div className="space-y-3 pt-4 border-t border-gray-100">
+        <label className="text-sm font-semibold text-gray-500">Core Features</label>
+        
+        <div className="flex gap-2">
+          <Input
+            placeholder="Add a key feature (e.g. Noise Cancelling)..."
+            value={newFeature}
+            onChange={(e) => setNewFeature(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                if (newFeature.trim()) {
+                  setFeatures([...features, newFeature.trim()]);
+                  setNewFeature("");
+                }
+              }
+            }}
+            className="h-9 rounded-xl"
+          />
+          <button
+            type="button"
+            onClick={() => {
+              if (newFeature.trim()) {
+                setFeatures([...features, newFeature.trim()]);
+                setNewFeature("");
+              }
+            }}
+            className="rounded-full bg-[#39b54a] text-white px-4 hover:bg-emerald-600 text-xs font-semibold h-9"
+          >
+            Add
+          </button>
+        </div>
+
+        {features.length > 0 && (
+          <div className="flex flex-wrap gap-2 pt-1">
+            {features.map((feat, index) => (
+              <span
+                key={index}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-xs font-semibold text-emerald-700"
+              >
+                {feat}
+                <button
+                  type="button"
+                  onClick={() => setFeatures(features.filter((_, i) => i !== index))}
+                  className="hover:text-red-600 font-black text-sm shrink-0"
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-wrap gap-4 pt-4 border-t border-gray-100">
         <label className="flex items-center gap-2 text-sm">
           <input
             name="featured"

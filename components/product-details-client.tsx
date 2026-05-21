@@ -64,13 +64,7 @@ export default function ProductDetailsClient({ product, relatedProducts }: Reado
     : `scale(1)`;
 
   const specsList = product.specs && product.specs.length > 0 ? product.specs : [
-    { label: "Model", value: product.name },
-    { label: "Driver size", value: "50mm Razer TriForce Drivers" },
-    { label: "Microphone", value: "Razer HyperClear Cardioid Mic" },
-    { label: "Weight", value: "240g Ultra Lightweight Design" },
-    { label: "Connectivity", value: "3.5mm Analog Audio Jack" },
-    { label: "RGB support", value: "Chroma RGB (on compatible models)" },
-    { label: "Surround Sound", value: "7.1 Surround Sound Support" }
+    { label: "Model", value: product.name }
   ];
 
   const reviews = [
