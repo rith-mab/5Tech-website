@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Category } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +13,7 @@ export function AdminCategoryList({
 }>) {
   const [token, setToken] = useState("");
   const [status, setStatus] = useState("");
+  const router = useRouter();
 
   const removeCategory = async (id: string) => {
     if (!token) {
@@ -27,7 +29,13 @@ export function AdminCategoryList({
       }
     });
     const result = await response.json();
-    setStatus(response.ok ? "Category deleted. Refresh the page to see the latest list." : result.error || "Unable to delete category.");
+    
+    if (response.ok) {
+      setStatus("Category deleted successfully.");
+      router.refresh();
+    } else {
+      setStatus(result.error || "Unable to delete category.");
+    }
   };
 
   return (

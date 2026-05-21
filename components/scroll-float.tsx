@@ -35,6 +35,20 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
 
   const splitText = useMemo(() => {
     const text = typeof children === 'string' ? children : '';
+    // Check if the text contains Khmer characters (Unicode range \u1780-\u17FF)
+    const hasKhmer = /[\u1780-\u17FF]/.test(text);
+
+    if (hasKhmer) {
+      // Split by spaces/words for Khmer to prevent dotted circle rendering bugs (◌)
+      const words = text.split(' ');
+      return words.map((word, index) => (
+        <span className="inline-block word" key={index}>
+          {word}
+          {index < words.length - 1 && '\u00A0'}
+        </span>
+      ));
+    }
+
     return text.split('').map((char, index) => (
       <span className="inline-block word" key={index}>
         {char === ' ' ? '\u00A0' : char}

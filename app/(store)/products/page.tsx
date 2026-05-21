@@ -2,7 +2,6 @@ import { EmptyState } from "@/components/empty-state";
 import { PaginationControls } from "@/components/pagination-controls";
 import { ProductGrid } from "@/components/product-grid";
 import { SearchFilterBar } from "@/components/search-filter-bar";
-import { SectionHeading } from "@/components/section-heading";
 import { getCategories, getProducts } from "@/lib/products";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -22,12 +21,6 @@ export default async function ProductsPage({
   const search = typeof params.search === "string" ? params.search : undefined;
   const price = typeof params.price === "string" ? params.price : undefined;
   const page = Number(typeof params.page === "string" ? params.page : "1") || 1;
-
-  try {
-    const fs = require("fs");
-    const logMsg = `[${new Date().toISOString()}] PAGE REQUEST: category=${category}, search=${search}, price=${price}, page=${page}\n`;
-    fs.appendFileSync("d:/5tech website/debug.log", logMsg);
-  } catch (e) {}
 
   const [products, categories, allProducts] = await Promise.all([
     getProducts({ category, search, price }),

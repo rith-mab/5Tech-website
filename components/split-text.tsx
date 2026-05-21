@@ -57,6 +57,8 @@ const SplitText: React.FC<SplitTextProps> = ({
       });
     }
   }, []);
+  const hasKhmer = /[\u1780-\u17FF]/.test(text);
+  const effectiveSplitType = hasKhmer ? 'words' : splitType;
 
   useGSAP(
     () => {
@@ -77,11 +79,11 @@ const SplitText: React.FC<SplitTextProps> = ({
       const start = `top ${startPct}%${sign}`;
 
       let targets: Element[] = [];
-      if (splitType.includes('chars')) {
+      if (effectiveSplitType.includes('chars')) {
         targets = Array.from(el.querySelectorAll('.split-char'));
-      } else if (splitType.includes('words')) {
+      } else if (effectiveSplitType.includes('words')) {
         targets = Array.from(el.querySelectorAll('.split-word'));
-      } else if (splitType.includes('lines')) {
+      } else if (effectiveSplitType.includes('lines')) {
         targets = Array.from(el.querySelectorAll('.split-line'));
       }
 
@@ -125,7 +127,7 @@ const SplitText: React.FC<SplitTextProps> = ({
         delay,
         duration,
         ease,
-        splitType,
+        effectiveSplitType,
         JSON.stringify(from),
         JSON.stringify(to),
         threshold,
@@ -137,7 +139,7 @@ const SplitText: React.FC<SplitTextProps> = ({
   );
 
   const renderContent = () => {
-    if (splitType === 'lines') {
+    if (effectiveSplitType === 'lines') {
       const lines = text.split('\n');
       return lines.map((line, i) => (
         <span
@@ -152,7 +154,7 @@ const SplitText: React.FC<SplitTextProps> = ({
 
     const words = text.split(' ');
     
-    if (splitType === 'words') {
+    if (effectiveSplitType === 'words') {
       return words.map((word, i) => (
         <span
           key={i}
