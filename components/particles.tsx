@@ -124,10 +124,21 @@ const Particles: React.FC<ParticlesProps> = ({
     const container = containerRef.current;
     if (!container) return;
 
-    const renderer = new Renderer({ dpr: pixelRatio, depth: false, alpha: true });
-    const gl = renderer.gl;
-    container.appendChild(gl.canvas);
-    gl.clearColor(0, 0, 0, 0);
+    let renderer: Renderer;
+    let gl: WebGLRenderingContext | WebGL2RenderingContext;
+
+    try {
+      renderer = new Renderer({ dpr: pixelRatio, depth: false, alpha: true });
+      gl = renderer.gl;
+      if (!gl) {
+        throw new Error("WebGL context creation failed");
+      }
+      container.appendChild(gl.canvas);
+      gl.clearColor(0, 0, 0, 0);
+    } catch (e) {
+      console.warn("WebGL is not supported or failed to initialize for Particles backdrop:", e);
+      return () => {}; // Return empty cleanup function
+    }
 
     const camera = new Camera(gl, { fov: 15 });
     camera.position.set(0, 0, cameraDistance);
