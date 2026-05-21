@@ -127,12 +127,12 @@ export default function ProductDetailsClient({ product, relatedProducts }: Reado
         {/* Main Product Layout Section */}
         <div className="grid gap-8 lg:grid-cols-12">
           
-          {/* LEFT: Image Gallery (Grid column 5) */}
+          {/* LEFT: Image Gallery (Grid column 4) */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-5 flex flex-col gap-4"
+            className="lg:col-span-4 flex flex-col gap-4 max-w-[420px] mx-auto lg:mx-0 w-full"
           >
             {/* Main Stage Image with Zoom */}
             <div className="relative aspect-square overflow-hidden rounded-[32px] border border-gray-200/50 bg-white/70 backdrop-blur-md shadow-lg group">
@@ -203,12 +203,12 @@ export default function ProductDetailsClient({ product, relatedProducts }: Reado
             </div>
           </motion.div>
 
-          {/* RIGHT: Product Information (Grid column 7) */}
+          {/* RIGHT: Product Information (Grid column 8) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="lg:col-span-7 flex flex-col justify-between space-y-6"
+            className="lg:col-span-8 flex flex-col justify-between space-y-6"
           >
             <div className="space-y-4">
               {/* Category */}

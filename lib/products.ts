@@ -185,8 +185,21 @@ export async function getProductBySlug(slug: string) {
 }
 
 export async function getRelatedProducts(product: Product, limit = 3) {
-  const allProducts = await getProducts({ category: product.category_name });
-  return allProducts.filter((item) => item.id !== product.id).slice(0, limit);
+  const allProducts = await getProducts();
+  const sameCategoryProducts = allProducts.filter(
+    (item) => item.category_id === product.category_id && item.id !== product.id
+  );
+  
+  if (sameCategoryProducts.length >= limit) {
+    return sameCategoryProducts.slice(0, limit);
+  }
+  
+  const otherProducts = allProducts.filter(
+    (item) => item.category_id !== product.category_id && item.id !== product.id
+  );
+  
+  const combined = [...sameCategoryProducts, ...otherProducts];
+  return combined.slice(0, limit);
 }
 
 export async function getCategories() {
